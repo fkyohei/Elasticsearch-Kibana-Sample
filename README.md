@@ -38,4 +38,68 @@ Elasticsearch: [http://localhost:9200/](http://localhost:9200/)
 Kibana: [http://localhost:5601/](http://localhost:5601/)
 
 ## 日本語対応
-日本語を使うならanalysis-kuromojiやanalysis-icuが必要になりそう
+日本語を使用できるようにするため、analysis-kuromojiやanalysis-icuをelasticsearchのコンテナにインストールする
+
+## プラグインインストール結果確認
+
+```sh
+curl -H "Content-Type: application/json"  -XGET 'http://localhost:9200/_nodes/plugins' | jq
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 41412  100 41412    0     0  3998k      0 --:--:-- --:--:-- --:--:-- 4044k
+{
+  "_nodes": {
+    "total": 3,
+    "successful": 3,
+    "failed": 0
+  },
+  "cluster_name": "es-docker-cluster",
+  "nodes": {
+    "FJEOAd3ISyKTLJCWvdZeJw": {
+      "name": "es03",
+      "transport_address": "172.21.0.3:9300",
+      "host": "172.21.0.3",
+      "ip": "172.21.0.3",
+      "version": "7.7.0",
+      "build_flavor": "default",
+      "build_type": "docker",
+      "build_hash": "81a1e9eda8e6183f5237786246f6dced26a10eaf",
+      "roles": [
+        "ingest",
+        "master",
+        "transform",
+        "data",
+        "remote_cluster_client",
+        "ml"
+      ],
+      "attributes": {
+        "ml.machine_memory": "4129218560",
+        "ml.max_open_jobs": "20",
+        "xpack.installed": "true",
+        "transform.node": "true"
+      },
+      "plugins": [
+        {
+          "name": "analysis-icu",
+          "version": "7.7.0",
+          "elasticsearch_version": "7.7.0",
+          "java_version": "1.8",
+          "description": "The ICU Analysis plugin integrates the Lucene ICU module into Elasticsearch, adding ICU-related analysis components.",
+          "classname": "org.elasticsearch.plugin.analysis.icu.AnalysisICUPlugin",
+          "extended_plugins": [],
+          "has_native_controller": false
+        },
+        {
+          "name": "analysis-kuromoji",
+          "version": "7.7.0",
+          "elasticsearch_version": "7.7.0",
+          "java_version": "1.8",
+          "description": "The Japanese (kuromoji) Analysis plugin integrates Lucene kuromoji analysis module into elasticsearch.",
+          "classname": "org.elasticsearch.plugin.analysis.kuromoji.AnalysisKuromojiPlugin",
+          "extended_plugins": [],
+          "has_native_controller": false
+        }
+      ],
+（以下省略）
+```
+
