@@ -103,3 +103,11 @@ curl -H "Content-Type: application/json"  -XGET 'http://localhost:9200/_nodes/pl
 （以下省略）
 ```
 
+## MySQLデータ投入
+mysql/initdb.d/にdumpしたSQLファイルを置いておくと、起動時にテーブル作成とデータインサートが実行される。  
+以下のコマンドでmysqlのコンテナに入ることが可能。
+
+```sh
+docker exec -it mysql bash
+```
+
