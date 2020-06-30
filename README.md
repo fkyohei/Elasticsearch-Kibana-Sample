@@ -7,7 +7,8 @@
 
 # 公式ページ
 [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)  
-[Kibana](https://www.elastic.co/guide/en/kibana/current/docker.html)
+[Kibana](https://www.elastic.co/guide/en/kibana/current/docker.html)  
+[Logstash](https://www.elastic.co/guide/en/logstash/current/index.html)
 
 # 手順
 ## Docker for Macをインストール
@@ -29,7 +30,7 @@ KibanaはOSSイメージではモニタリングプラグインは定義され�
 ## docker起動
 
 ```sh
-docker-compose up
+docker-compose up --build -d
 ```
 
 ## 起動確認
@@ -111,3 +112,19 @@ mysql/initdb.d/にdumpしたSQLファイルを置いておくと、起動時に�
 docker exec -it mysql bash
 ```
 
+## ESインデックス作成
+logstashを使用して、MySQLのデータをESに流してインデックスを作成する。  
+インデックスを作成するには、logstash/pipiline配下にsample.confを基にして、SELECT文やfilter等を定義してあげる。  
+filterなしで直接ESにoutputを流すとSELECT結果そのままがインデックスとして出来上がる。
+
+## docker停止&データも含めてすべて削除
+
+```sh
+docker-compose down --rmi all --volumes
+```
+
+## docker起動状態確認
+
+```sh
+docker-compose ps
+```

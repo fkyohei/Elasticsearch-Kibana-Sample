@@ -76,6 +76,15 @@ services:
       TZ: 'Asia/Tokyo'
     ports:
       - 3306:3306
+    networks:
+      - elastic
+  logstash:
+    build: logstash
+    container_name: logstash
+    ports:
+      - 5044:5044
+    networks:
+      - elastic
 
 volumes:
   data01:
