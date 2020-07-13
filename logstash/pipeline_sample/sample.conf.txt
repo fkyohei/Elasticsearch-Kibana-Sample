@@ -1,5 +1,6 @@
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # pipeline/に.confとして定義
+# filterの部分は任意（省略可能）
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 input {
@@ -12,6 +13,22 @@ input {
     jdbc_password => "password"
     jdbc_default_timezone => "Asia/Tokyo"
     statement => "SELECT * FROM sample_table"
+    type => "sample"
+  }
+}
+
+filter {
+  if [type] == "sample" {
+    translate {
+      field => "[fruit_code]"
+      destination => "[fruit_name]"
+      dictionary => {
+        "01" => "apple"
+        "02" => "banana"
+        "03" => "orange"
+        "04" => "lemon"
+      }
+    }
   }
 }
 

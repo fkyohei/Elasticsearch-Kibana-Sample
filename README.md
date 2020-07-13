@@ -34,6 +34,7 @@ docker-compose up --build -d
 ```
 
 ## 起動確認
+※ ec01のコンテナがコケると起動できない場合はある。その場合は起動し直すしかない。（原因とか調査したい）
 
 Elasticsearch: [http://localhost:9200/](http://localhost:9200/)  
 Kibana: [http://localhost:5601/](http://localhost:5601/)
